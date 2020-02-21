@@ -182,7 +182,9 @@ main :: proc() {
     }
     gl.load_up_to(GL_MAJOR, GL_MINOR, set_proc_address);
 
-    program, shader_success := gl.load_shaders("shaders/shader_passthrough.vs", "shaders/shader_passthrough.fs");
+    vertex_shader := cast(string)#load("shaders/shader_passthrough.vs");
+    fragment_shader := cast(string)#load("shaders/shader_passthrough.fs");
+    program, shader_success := gl.load_shaders_source(vertex_shader, fragment_shader);
     if !shader_success do panic("Failed to load shaders!");
     defer gl.DeleteProgram(program);
 
